@@ -114,3 +114,13 @@ function from_timestamp() {
     let ms = timestamp % 100
     return `${hrs}:${mins}:${secs}.${ms}`
 }
+
+document.querySelectorAll('.nav-tab').forEach(navtab => {
+    navtab.addEventListener('click', () => {
+        document.querySelectorAll('.nav-tab').forEach(navtab => navtab.classList.remove('active'))
+        navtab.classList.add('active')
+
+        document.querySelectorAll('section').forEach(navtab => navtab.classList.remove('active'))
+        document.querySelector(navtab.dataset.for).classList.add('active')
+    })
+})

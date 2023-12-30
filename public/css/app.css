@@ -18329,6 +18329,12 @@ body header nav .nav-tab:hover {
 body main {
   width: 100%;
 }
+body main section {
+  display: none;
+}
+body main section.active {
+  display: flex;
+}
 body main .stopwatch .watching > div {
   color: #fff !important;
 }
