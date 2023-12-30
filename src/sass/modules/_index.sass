@@ -1,0 +1,97 @@
+*
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    color: #e1e1e1
+
+@mixin indicator()
+    position: absolute
+    font-size: calc(1rem + 1vh)
+    bottom: -22.5%
+    left: 50%
+    transform: translateX(-50%)
+    font-weight: normal
+
+body
+    width: 100vw
+    height: 100vh
+    header
+        width: 20%
+        a
+            cursor: pointer
+        nav
+            .nav-tab
+                &.active
+                    position: relative
+                    background-color: #2d2d2d !important
+                    &::after
+                        content: ""
+                        position: absolute
+                        left: 0
+                        width: 2px
+                        height: 50%
+                        background-color: #5fb2f2
+                        border-radius: .375rem
+                &:hover
+                    background-color: #2d2d2d !important
+
+    main
+        width: 100%
+        .stopwatch
+            .watching > div
+                color: #fff !important
+            .hrs
+                position: relative
+                &::after
+                    content: "hr"
+                    @include indicator()
+            .mins
+                position: relative
+                &::after
+                    content: "min"
+                    @include indicator()
+            .secs
+                position: relative
+                &::after
+                    content: "sec"
+                    @include indicator()
+
+            .button
+                cursor: pointer
+                width: 56px
+                height: 56px
+
+            #laps
+                display: none
+                table
+                    max-height: 40vh
+                    display: block
+                    white-space: nowrap
+                    overflow: auto
+                    table-layout: fixed
+                &:has(td)
+                    display: block
+                thead
+                    position: sticky
+                    top: 0
+                th
+                    padding: .5rem 5rem 1.5rem 1rem
+                    font-size: 1.25rem
+                    text-align: left
+                    position: relative
+                    background: $dark
+
+                    &::after
+                        content: ""
+                        background: $gray
+                        width: 100%
+                        height: 1.75px
+                        bottom: 0
+                        left: 0
+                        position: absolute
+                        transform: translateY(-0.5rem)     
+                td
+                    padding: .5rem 5rem .5rem 1rem
+                    font-size: 1.125rem
+                    font-weight: normal
