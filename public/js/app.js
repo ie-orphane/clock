@@ -179,20 +179,60 @@ class CountDown {
             if (CountDown.timestamp == 0) {
                 CountDown.timer = false
                 CountDown.play.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" height="28" width="28" viewBox="0 0 310 500" fill="#e1e1e1">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 310 500" fill="#e1e1e1">
                         <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
                     </svg>`
+                CountDown.notification()
                 return
             }
 
             CountDown.timestamp--
+            if (CountDown.timestamp % 100 == 0 && CountDown.timestamp != 0) {
+                new Audio("./public/sounds/tick.mp3").play()
+            }
 
             document.querySelector('.countdown-card').style.background = `linear-gradient(#303030, #303030) content-box no-repeat, conic-gradient(#5fb2f2 ${CountDown.timestamp / CountDown.time * 100}%, 0, #7b7b7b) border-box`
 
             let currentTime = CountDown.timestamp_to_time(CountDown.timestamp)
             document.querySelector('.countdown-time').innerHTML = CountDown.time_to_string(currentTime)
             document.querySelector('.countdown-time').dataset.timestamp = CountDown.timestamp
-            setTimeout(CountDown.count_down, 1)
+            setTimeout(CountDown.count_down, 10)
+        }
+    }
+
+    static notification() {
+        let permission = Notification.permission
+
+        if (permission === "granted") {
+            show_notification()
+        } else if (permission === "default") {
+            request_permission_and_show_notification()
+        } else {
+            alert("time done!")
+        }
+
+        function show_notification() {
+            // if (document.visibilityState === "visible") {
+            //     return
+            // }
+
+            let notification = new Notification("Timer", {
+                body: "time dne!",
+                icon: "./public/images/favicon.svg"
+            })
+
+            notification.onclick = () => {
+                notif.close()
+                window.parent.focus()
+            }
+        }
+
+        function request_permission_and_show_notification() {
+            Notification.requestPermission(function (permission) {
+                if (permission === "granted") {
+                    show_notification()
+                }
+            })
         }
     }
 
@@ -205,7 +245,10 @@ class CountDown {
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 310 500" fill="#e1e1e1">
                     <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
                 </svg>`
-        } else {
+        } else if (CountDown.timestamp != 0) {
+            if (CountDown.timestamp == CountDown.time) {
+                new Audio("./public/sounds/tick.mp3").play()
+            }
             CountDown.timer = true
             CountDown.restart.firstElementChild.setAttribute('fill', '#7b7b7b')
             CountDown.play.innerHTML = `
