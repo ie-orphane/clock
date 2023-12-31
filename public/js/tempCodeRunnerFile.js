@@ -1,16 +1,25 @@
-let timer = false
-let hour = 1
-let minute = 2
-let second = 20
-let count = 45
+function timestamp_to_time(timestamp) {
+    let hrs = Math.trunc(timestamp / (60 * 60 * 100))
+    timestamp = timestamp % (60 * 60 * 100)
+    
+    let mins = Math.trunc(timestamp / (60 * 100))
+    timestamp = timestamp % (60 * 100)
+    
+    let secs = Math.trunc(timestamp / 100)
+    let ms = timestamp % 100
 
-console.log(hour*60*60*100, minute*60*100, second*100, count)
+    return {hrs: hrs, mins: mins, secs: secs, ms: ms}
+}
 
-// let timestamp = hour*60*60*100 + minute*60*100 + second*100 + count
-let timestamp = 4180029
-console.log(timestamp)
+console.log(timestamp_to_time(2000001))
 
+function time_to_string(time) {
+    time.hrs = String(time.hrs).padStart(2, '0')
+    time.mins = String(time.mins).padStart(2, '0')
+    time.secs = String(time.secs).padStart(2, '0')
+    time.ms = String(time.ms).padStart(2, '0')
 
+    return `${time.hrs}:${time.mins}:${time.secs}.${time.ms}`
+}
 
-console.log(hour, minute, second, count)
-// console.log(h, min, sec, ms)
+console.log(time_to_string(timestamp_to_time(2000001)))

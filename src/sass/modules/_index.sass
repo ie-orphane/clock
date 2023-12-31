@@ -43,8 +43,15 @@ body
             &.active
                 display: flex
         .stopwatch
+            .button
+                cursor: pointer
+                width: 56px
+                height: 56px
+
             .watching > div
                 color: #fff !important
+            // span
+            //     max-width: 9%
             .hrs
                 position: relative
                 &::after
@@ -60,11 +67,6 @@ body
                 &::after
                     content: "sec"
                     @include indicator()
-
-            .button
-                cursor: pointer
-                width: 56px
-                height: 56px
 
             #laps
                 display: none
@@ -94,8 +96,23 @@ body
                         bottom: 0
                         left: 0
                         position: absolute
-                        transform: translateY(-0.5rem)     
+                        transform: translateY(-0.5rem)
                 td
                     padding: .5rem 5rem .5rem 1rem
                     font-size: 1.125rem
                     font-weight: normal
+        .countdown
+            .button
+                cursor: pointer
+                width: 38px
+                height: 38px
+            .countdown-card
+                width: 30vmin
+                height: 30vmin
+                border: 8px solid transparent
+                border-radius: 50%
+                background: linear-gradient($gray, $gray) content-box no-repeat, conic-gradient($blue 0%, 0, $light-gray) border-box
+                display: flex
+                align-items: center
+                justify-content: center
+                font-size: 2.75rem
